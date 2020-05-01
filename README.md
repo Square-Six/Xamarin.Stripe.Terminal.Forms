@@ -1,6 +1,6 @@
 # Xamarin.Stripe.Terminal.Forms
 
-[![NuGet](https://img.shields.io/nuget/v/Xamarin.Stripe.Terminal.iOS.svg)](https://www.nuget.org/packages/Xamarin.Stripe.Terminal.Forms/)
+[![NuGet](https://img.shields.io/nuget/v/Xamarin.Stripe.Terminal.Forms.svg)](https://www.nuget.org/packages/Xamarin.Stripe.Terminal.Forms/)
 
 [Stripe][stripe] Terminal SDK Bindings for Xamarin.Forms
 
@@ -33,7 +33,73 @@ From within Visual Studio:
 5. Click on the Xamarin.Stripe.Terminal.Forms package, select the appropriate version in the
    right-tab and click *Install*.
 
-## Documentation
+
+## Support platforms
+
+- [x] Android
+- [x] iOS
+
+
+## Initialization before use
+
+iOS:
+
+ - Create a TokenProvider class that derives from `SCPConnectionTokenProvider` and override the `FetchConnectionToken`       method. That method is where you need to retrieve and return your Stripe Configuration Key.
+ 
+ - Set the TokenProvder by calling the `SCPTerminal.SetTokenProvider(new TokenProvider())` method
+
+ - Call the `StripeTerminal.InitTerminalManager()` method
+ 
+ Android:
+ 
+  - Create a TokenProvider class that derives from `IConnectionTokenProvider` and override the `FetchConnectionToken`       method. That method is where you need to retrieve and return your Stripe Configuration Key.
+  
+   ```
+   public class TokenProvider : Java.Lang.Object, IConnectionTokenProvider
+   {
+   }
+   ```
+ 
+ - Set the TokenProvder by calling the `SCPTerminal.SetTokenProvider(new TokenProvider())` method
+
+ - NOTE: Make sure that location permissions are enabled before calling `InitTemrinal`
+  
+ ```
+ if (ContextCompat.CheckSelfPermission(MainActivity.Instance, Android.Manifest.Permission.AccessFineLocation) != Android.Content.PM.Permission.Granted)
+ {
+      ActivityCompat.RequestPermissions(MainActivity.Instance, new[] 
+      { 
+         Android.Manifest.Permission.AccessFineLocation }, 10);
+      }
+ }
+
+ # listener is typeof(ITerminalListener)
+ StripeTerminal.InitTerminal(Android.App.Application.Context, new TokenProvider(dataService), listener);
+ ```
+
+
+## IStripeTerminalService Interafce methods
+
+```
+void InitTerminalManager();
+void DiscoverReaders(Action<IList<StripeTerminalReader>> readers, Action scanTimeoutCallback);
+void CancelDiscover();
+void ConnectToReader(StripeTerminalReader reader, Action<Boolean> onReaderConnectionSuccess);
+void ReconnectToReader(Action<Boolean> onReaderConnectionSuccess);
+void RetreivePaymentIntent(String clientSecret, Action<String> onSuccess, Action<String> onFailure);
+void RegisterReaderMessageNotifications(Action<String> readerMessageNotificationHandler);
+void TearDownReaderMessageNotifications();
+void RegisterConnectionMessageNotifications(Action<String> readerConnectionNotificationHandler);
+void TearDownConnectionMessageNotifications();
+void CancelPayment();
+void DisconnectReader();
+Boolean IsTerminalConnected { get; }
+String ArePermissionsGranted();
+void CheckForSoftwareUpdate(Action<String, String> hasUpdate);
+void UpdateSoftware(Action<float> updateMessage, Action<string> complete);
+```
+
+## Native SDK Documentation
 
 iOS:
 
