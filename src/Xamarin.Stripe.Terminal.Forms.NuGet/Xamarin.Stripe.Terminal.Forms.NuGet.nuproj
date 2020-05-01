@@ -21,6 +21,7 @@
     <NeutralLanguage>en</NeutralLanguage>
     <PackageReleaseNotes>Initial release</PackageReleaseNotes>
     <PackageProjectUrl>https://github.com/Square-Six/Xamarin.Stripe.Terminal.Forms</PackageProjectUrl>
+    <PackageLicenseUrl>https://github.com/stripe/stripe-terminal-ios/blob/master/LICENSE</PackageLicenseUrl>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
