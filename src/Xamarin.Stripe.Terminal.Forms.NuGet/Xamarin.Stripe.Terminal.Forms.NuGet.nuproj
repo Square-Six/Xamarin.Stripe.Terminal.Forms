@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(NuGetAuthoringPath)\NuGet.Packaging.Authoring.props" Condition="Exists('$(NuGetAuthoringPath)\NuGet.Packaging.Authoring.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{FE98F48D-CD3D-4C2D-B32A-F599464CE631}</ProjectGuid>
+    <Description>Stripe-Terminal SDK bindings for Xamarin.Forms</Description>
+    <PackageId>Xamarin.Stripe.Terminal.Forms</PackageId>
+    <PackageVersion>1.0.0</PackageVersion>
+    <Authors>Jamie Smith</Authors>
+    <DevelopmentDependency>false</DevelopmentDependency>
+    <PackageRequireLicenseAcceptance>false</PackageRequireLicenseAcceptance>
+    <OutputType>Exe</OutputType>
+    <RootNamespace>Xamarin.Stripe.Terminal.Forms</RootNamespace>
+    <UsePartialTypes>false</UsePartialTypes>
+    <AssemblyName>Xamarin.Stripe.Terminal.Forms.NuGet</AssemblyName>
+    <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
+    <Owners>SquareSix</Owners>
+    <Copyright>SquareSix 2020</Copyright>
+    <NeutralLanguage>en</NeutralLanguage>
+    <PackageReleaseNotes>Initial release</PackageReleaseNotes>
+    <PackageProjectUrl>https://github.com/Square-Six/Xamarin.Stripe.Terminal.Forms</PackageProjectUrl>
+    <PackageLicenseUrl>https://github.com/stripe/stripe-terminal-ios/blob/master/LICENSE</PackageLicenseUrl>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <OutputPath>bin\Debug</OutputPath>
+    <ErrorReport>prompt</ErrorReport>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <OutputPath>bin\Release</OutputPath>
+    <ErrorReport>prompt</ErrorReport>
+  </PropertyGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Xamarin.Stripe.Terminal.Forms.Android\Xamarin.Stripe.Terminal.Forms.Android.csproj">
+      <Project>{9885AA26-D175-4966-8BA0-AE0BC80D06B3}</Project>
+      <Name>Xamarin.Stripe.Terminal.Forms.Android</Name>
+      <ReferenceSourceTarget>ProjectReference</ReferenceSourceTarget>
+    </ProjectReference>
+    <ProjectReference Include="..\Xamarin.Stripe.Terminal.Forms.iOS\Xamarin.Stripe.Terminal.Forms.iOS.csproj">
+      <Project>{95558003-41FE-40B8-A073-9A68248843F8}</Project>
+      <Name>Xamarin.Stripe.Terminal.Forms.iOS</Name>
+      <ReferenceSourceTarget>ProjectReference</ReferenceSourceTarget>
+    </ProjectReference>
+    <ProjectReference Include="..\Xamarin.Stripe.Terminal.Forms.Core\Xamarin.Stripe.Terminal.Forms.Core.csproj">
+      <Project>{C9C9B09A-5E84-442D-A1D5-A7815CBA2F18}</Project>
+      <Name>Xamarin.Stripe.Terminal.Forms.Core</Name>
+      <SkipGetTargetFrameworkProperties></SkipGetTargetFrameworkProperties>
+      <AdditionalProperties></AdditionalProperties>
+      <ReferenceOutputAssembly>False</ReferenceOutputAssembly>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="NuGet.Build.Packaging">
+      <Version>0.2.5-dev.8</Version>
+      <PrivateAssets>All</PrivateAssets>
+    </PackageReference>
+  </ItemGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.Common.targets" />
+  <Import Project="$(NuGetAuthoringPath)\NuGet.Packaging.Authoring.targets" Condition="Exists('$(NuGetAuthoringPath)\NuGet.Packaging.Authoring.targets')" />
+</Project>
