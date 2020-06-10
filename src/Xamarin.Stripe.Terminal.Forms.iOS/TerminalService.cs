@@ -120,7 +120,7 @@ namespace Xamarin.Stripe.Terminal.Forms
 
         public void DiscoverReaders(Action<IList<StripeTerminalReader>> readers, Action scanTimeoutCallback)
         {
-            var configuration = new SCPDiscoveryConfiguration(SCPDeviceType.SCPDeviceTypeChipper2X, SCPDiscoveryMethod.Scan, false);
+            var configuration = new SCPDiscoveryConfiguration(SCPDeviceType.Chipper2X, SCPDiscoveryMethod.BluetoothScan, false);
             configuration.Timeout = 15;
 
             _onReadersDiscoveredAction = readers;
