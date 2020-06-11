@@ -1,0 +1,48 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<ContentView
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    x:Class="DemoForms.ContentViews.Cells.SettingsItemView">
+    <ContentView.Content>
+        <Grid
+            RowSpacing="0"
+            BackgroundColor="#EFEFF4">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="Auto"/>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
+            <Label
+                VerticalTextAlignment="End"
+                Margin="15,0,15,0"
+                FontSize="12"
+                Text="{Binding TitleText}"
+                TextColor="Gray"
+                Grid.Column="0"
+                Grid.Row="0"/>
+            <StackLayout
+                Margin="0,8,0,30"
+                Padding="15"
+                BackgroundColor="White"
+                Grid.ColumnSpan="2"
+                Grid.Row="1"
+                Orientation="Horizontal">
+                <Label
+                    FontSize="16"
+                    HorizontalOptions="FillAndExpand"
+                    VerticalTextAlignment="Center"
+                    TextColor="{Binding DetailTextColor}"
+                    Text="{Binding Text}"/>
+                <Image
+                    IsVisible="{Binding IsIconVisible}"
+                    Source="{Binding IconSource}"
+                    VerticalOptions="Center"
+                    WidthRequest="15"
+                    HeightRequest="15"/>
+            </StackLayout>
+        </Grid>
+    </ContentView.Content>
+</ContentView>
