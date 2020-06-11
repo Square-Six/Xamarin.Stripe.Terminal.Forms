@@ -1,0 +1,68 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<ContentPage
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:views="clr-namespace:DemoForms.ContentViews"
+    xmlns:cells="clr-namespace:DemoForms.ContentViews.Cells"
+    xmlns:ios="clr-namespace:Xamarin.Forms.PlatformConfiguration.iOSSpecific;assembly=Xamarin.Forms.Core"
+    ios:Page.UseSafeArea="true"
+    BackgroundColor="#EFEFF4"
+    x:Class="DemoForms.DiscoverReadersPage">
+    <NavigationPage.TitleView>
+       <views:NavigationView/>
+    </NavigationPage.TitleView>
+    <ContentPage.Content>
+        <Grid>
+            <CollectionView
+                IsVisible="{Binding IsResultsVisible}"
+                BackgroundColor="Transparent"
+                SelectionMode="Single"
+                SelectedItem="{Binding SelectedItem}"
+                ItemsSource="{Binding ListItems}">
+                <CollectionView.ItemTemplate>
+                    <DataTemplate>
+                        <cells:CardReaderView/>
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+            </CollectionView>
+            <Grid
+                IsVisible="{Binding IsConnectionStateVisible}">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="50"/>
+                    <RowDefinition Height="50"/>
+                </Grid.RowDefinitions>
+                <Label
+                    TextColor="Black"
+                    Margin="40"
+                    HorizontalTextAlignment="Center"
+                    Text="Payment Reader Connected Successfuly"/>
+                <Button
+                    IsVisible="{Binding IsUpdateAvailable}"
+                    Command="{Binding UpdateCommand}"
+                    Margin="15,0,15,0"
+                    Grid.Row="1"
+                    BackgroundColor="Gray"
+                    TextColor="White"
+                    Text="Update Reader"/>
+                <StackLayout
+                    Margin="15,0,15,0"
+                    Orientation="Horizontal"
+                    Grid.Row="2">
+                    <Button
+                        Command="{Binding CloseCommand}"
+                        HorizontalOptions="FillAndExpand"
+                        BackgroundColor="Gray"
+                        TextColor="White"
+                        Text="Close"/>
+                    <Button
+                        Command="{Binding DisconnectCommand}"
+                        HorizontalOptions="FillAndExpand"
+                        BackgroundColor="Gray"
+                        TextColor="White"
+                        Text="Disconnect"/>
+                </StackLayout>
+            </Grid>
+        </Grid>
+    </ContentPage.Content>
+</ContentPage>

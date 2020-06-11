@@ -42,8 +42,8 @@
     <Reference Include="System.Xml" />
     <Reference Include="System.Core" />
     <Reference Include="Xamarin.iOS" />
-    <Reference Include="NativeLibrary">
-      <HintPath>..\packages\Xamarin.Stripe.Terminal.iOS.1.1.1\lib\xamarinios10\NativeLibrary.dll</HintPath>
+    <Reference Include="Xamarin.Stripe.Terminal.iOS">
+      <HintPath>..\packages\Xamarin.Stripe.Terminal.iOS.1.2.0\lib\xamarinios10\Xamarin.Stripe.Terminal.iOS.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>
@@ -55,7 +55,7 @@
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Xamarin.Stripe.Terminal.Forms.Core\Xamarin.Stripe.Terminal.Forms.Core.csproj">
-      <Project>{C9C9B09A-5E84-442D-A1D5-A7815CBA2F18}</Project>
+      <Project>{FAFE2D25-95CD-4F2E-9C98-7245E101FCB6}</Project>
       <Name>Xamarin.Stripe.Terminal.Forms.Core</Name>
     </ProjectReference>
   </ItemGroup>

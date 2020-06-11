@@ -1,0 +1,31 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<ContentView
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    x:Class="DemoForms.ContentViews.Cells.StatusView">
+    <ContentView.Content>
+        <Grid
+            BackgroundColor="#EFEFF4"
+            RowSpacing="0">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                 <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
+            <Image
+                Margin="0,40,0,0"
+                Source="{Binding IconSource}"
+                HorizontalOptions="Center"
+                Grid.Row="0"
+                WidthRequest="40"
+                HeightRequest="40"/>
+            <Label
+                Margin="0,0,0,40"
+                TextColor="Gray"
+                FontSize="12"
+                HorizontalOptions="FillAndExpand"
+                HorizontalTextAlignment="Center"
+                Text="{Binding Text}"
+                Grid.Row="1"/>
+        </Grid>
+    </ContentView.Content>
+</ContentView>

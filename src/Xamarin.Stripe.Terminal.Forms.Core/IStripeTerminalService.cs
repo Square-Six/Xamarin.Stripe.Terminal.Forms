@@ -5,22 +5,24 @@ namespace Xamarin.Stripe.Terminal.Forms
 {
     public interface IStripeTerminalService
     {
+        bool IsTerminalConnected { get; }
+
         void InitTerminalManager();
-
-        void DiscoverReaders(Action<IList<StripeTerminalReader>> readers, Action scanTimeoutCallback);
-
+        void DiscoverReaders(StripeDiscoveryConfiguration config, Action<IList<StripeTerminalReader>> readers, Action scanTimeoutCallback);
         void CancelDiscover();
-
-        void ConnectToReader(StripeTerminalReader reader, Action<Boolean> onReaderConnectionSuccess);
-
-        void ReconnectToReader(Action<Boolean> onReaderConnectionSuccess);
-
-        void RetreivePaymentIntent(String clientSecret, Action<String> onSuccess, Action<String> onFailure);
+        void ConnectToReader(StripeTerminalReader reader, Action<ReaderConnectionResult> onReaderConnectionSuccess);
+        void ReconnectToReader(Action<bool> onReaderConnectionSuccess);
+        void RetreivePaymentIntent(string clientSecret, Action<string> onSuccess, Action<string> onFailure);
+        void CancelPayment();
+        void DisconnectReader();
+        string ArePermissionsGranted();
+        void CheckForSoftwareUpdate(Action<string, string> hasUpdate);
+        void UpdateSoftware(Action<float> updateMessage, Action<string> complete);
 
         /// <summary>
         /// Register callbacks into Xamarin Forms Screens
         /// </summary>
-        void RegisterReaderMessageNotifications(Action<String> readerMessageNotificationHandler);
+        void RegisterReaderMessageNotifications(Action<string> readerMessageNotificationHandler);
 
         /// <summary>
         /// Unregister callbacks into Xamarin Forms Screens
@@ -30,24 +32,11 @@ namespace Xamarin.Stripe.Terminal.Forms
         /// <summary>
         /// Register callbacks into Xamarin Forms Screens
         /// </summary>
-        void RegisterConnectionMessageNotifications(Action<String> readerConnectionNotificationHandler);
+        void RegisterConnectionMessageNotifications(Action<string> readerConnectionNotificationHandler);
 
         /// <summary>
         /// Unregister callbacks into Xamarin Forms Screens
         /// </summary>
         void TearDownConnectionMessageNotifications();
-
-        void CancelPayment();
-
-        void DisconnectReader();
-
-        Boolean IsTerminalConnected { get; }
-
-        String ArePermissionsGranted();
-
-        void CheckForSoftwareUpdate(Action<System.String, System.String> hasUpdate);
-
-        void UpdateSoftware(Action<float> updateMessage, Action<string> complete);
-
     }
 }
