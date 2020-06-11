@@ -42,19 +42,17 @@ From within Visual Studio:
 
 ## Initialization before use
 
-
 iOS:
 
- - Create a TokenProvider class that derives from `SCPConnectionTokenProvider` and override the `FetchConnectionToken` method. That method is where you need to retrieve and return your Stripe Configuration Key.
+ - Create a TokenProvider class that derives from `SCPConnectionTokenProvider` and override the `FetchConnectionToken`       method. That method is where you need to retrieve and return your Stripe Configuration Key.
  
  - Set the TokenProvder by calling the `SCPTerminal.SetTokenProvider(new TokenProvider())` method
 
  - Call the `StripeTerminal.InitTerminalManager()` method
-
  
  Android:
  
-  - Create a TokenProvider class that derives from `IConnectionTokenProvider` and override the `FetchConnectionToken` method. That method is where you need to retrieve and return your Stripe Configuration Key.
+  - Create a TokenProvider class that derives from `IConnectionTokenProvider` and override the `FetchConnectionToken`       method. That method is where you need to retrieve and return your Stripe Configuration Key.
   
    ```
    public class TokenProvider : Java.Lang.Object, IConnectionTokenProvider
@@ -62,65 +60,44 @@ iOS:
    }
    ```
  
- - Set the TokenProvder by calling the `StripeTerminal.InitTerminal(Application.Context, tokenProvider, terminalService)` method
+ - Set the TokenProvder by calling the `SCPTerminal.SetTokenProvider(new TokenProvider())` method
 
  - NOTE: Make sure that location permissions are enabled before calling `InitTemrinal`
   
  ```
- if (ContextCompat.CheckSelfPermission(this, Android.Manifest.Permission.AccessFineLocation) != Permission.Granted)
+ if (ContextCompat.CheckSelfPermission(MainActivity.Instance, Android.Manifest.Permission.AccessFineLocation) != Android.Content.PM.Permission.Granted)
  {
-    ActivityCompat.RequestPermissions(this, new[] { Android.Manifest.Permission.AccessFineLocation }, 10);
+      ActivityCompat.RequestPermissions(MainActivity.Instance, new[] 
+      { 
+         Android.Manifest.Permission.AccessFineLocation }, 10);
+      }
  }
+
+ # listener is typeof(ITerminalListener)
+ StripeTerminal.InitTerminal(Android.App.Application.Context, new TokenProvider(dataService), listener);
+ ```
 
 
 ## IStripeTerminalService Interafce methods
 
 ```
-bool IsTerminalConnected { get; }
-void InitTerminalManager()
-void DiscoverReaders(StripeDiscoveryConfiguration config, Action<IList<StripeTerminalReader>> readers, Action scanTimeoutCallback)
-void CancelDiscover()
-void ConnectToReader(StripeTerminalReader reader, Action<ReaderConnectionResult> onReaderConnectionSuccess)
-void ReconnectToReader(Action<bool> onReaderConnectionSuccess)
-void RetreivePaymentIntent(string clientSecret, Action<string> onSuccess, Action<string> onFailure)
-void CancelPayment()
-void DisconnectReader()
-string ArePermissionsGranted()
-void CheckForSoftwareUpdate(Action<string, string> hasUpdate)
-void UpdateSoftware(Action<float> updateMessage, Action<string> complete)
-void RegisterReaderMessageNotifications(Action<string> readerMessageNotificationHandler)
-void TearDownReaderMessageNotifications()
-void RegisterConnectionMessageNotifications(Action<string> readerConnectionNotificationHandler)
-void TearDownConnectionMessageNotifications()
+void InitTerminalManager();
+void DiscoverReaders(Action<IList<StripeTerminalReader>> readers, Action scanTimeoutCallback);
+void CancelDiscover();
+void ConnectToReader(StripeTerminalReader reader, Action<Boolean> onReaderConnectionSuccess);
+void ReconnectToReader(Action<Boolean> onReaderConnectionSuccess);
+void RetreivePaymentIntent(String clientSecret, Action<String> onSuccess, Action<String> onFailure);
+void RegisterReaderMessageNotifications(Action<String> readerMessageNotificationHandler);
+void TearDownReaderMessageNotifications();
+void RegisterConnectionMessageNotifications(Action<String> readerConnectionNotificationHandler);
+void TearDownConnectionMessageNotifications();
+void CancelPayment();
+void DisconnectReader();
+Boolean IsTerminalConnected { get; }
+String ArePermissionsGranted();
+void CheckForSoftwareUpdate(Action<String, String> hasUpdate);
+void UpdateSoftware(Action<float> updateMessage, Action<string> complete);
 ```
-
-
-## ReaderConnectionResult
-
-```
-public class ReaderConnectionResult
-{
-    public string ErrorMessage { get; set; }
-    public bool IsConnected { get; set; }
-}
-```
-
-## StripeDiscoveryConfiguration
-```
-public int TimeOut { get; set; }
-public string DeviceType { get; set; }
-public string DiscoveyMethod { get; set; }
-public bool IsSimulated { get; set; }
-```
-
-## StripeDisStripeTerminalReadercoveryConfiguration
-```
-public float BatteryLevel { get; set; }
-public bool IsSimulated { get; set; }
-public string SerialNumber { get; set; }
-public string SoftwareVersion { get; set; }
-```
-
 
 ## Native SDK Documentation
 
