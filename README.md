@@ -77,21 +77,21 @@ iOS:
 
 ```
 bool IsTerminalConnected { get; }
-void InitTerminalManager();
-void DiscoverReaders(StripeDiscoveryConfiguration config, Action<IList<StripeTerminalReader>> readers, Action scanTimeoutCallback);
-void CancelDiscover();
-void ConnectToReader(StripeTerminalReader reader, Action<ReaderConnectionResult> onReaderConnectionSuccess);
-void ReconnectToReader(Action<bool> onReaderConnectionSuccess);
-void RetreivePaymentIntent(string clientSecret, Action<string> onSuccess, Action<string> onFailure);
-void CancelPayment();
-void DisconnectReader();
-string ArePermissionsGranted();
-void CheckForSoftwareUpdate(Action<string, string> hasUpdate);
-void UpdateSoftware(Action<float> updateMessage, Action<string> complete);
-void RegisterReaderMessageNotifications(Action<string> readerMessageNotificationHandler);
-void TearDownReaderMessageNotifications();
-void RegisterConnectionMessageNotifications(Action<string> readerConnectionNotificationHandler);
-void TearDownConnectionMessageNotifications();
+void InitTerminalManager()
+void DiscoverReaders(StripeDiscoveryConfiguration config, Action<IList<StripeTerminalReader>> readers, Action scanTimeoutCallback)
+void CancelDiscover()
+void ConnectToReader(StripeTerminalReader reader, Action<ReaderConnectionResult> onReaderConnectionSuccess)
+void ReconnectToReader(Action<bool> onReaderConnectionSuccess)
+void RetreivePaymentIntent(string clientSecret, Action<string> onSuccess, Action<string> onFailure)
+void CancelPayment()
+void DisconnectReader()
+string ArePermissionsGranted()
+void CheckForSoftwareUpdate(Action<string, string> hasUpdate)
+void UpdateSoftware(Action<float> updateMessage, Action<string> complete)
+void RegisterReaderMessageNotifications(Action<string> readerMessageNotificationHandler)
+void TearDownReaderMessageNotifications()
+void RegisterConnectionMessageNotifications(Action<string> readerConnectionNotificationHandler)
+void TearDownConnectionMessageNotifications()
 ```
 
 
