@@ -60,17 +60,15 @@ iOS:
    }
    ```
  
- - Set the TokenProvder by calling the `SCPTerminal.SetTokenProvider(new TokenProvider())` method
+ - Set the TokenProvder by calling the `StripeTerminal.InitTerminal(Application.Context, tokenProvider, terminalService)` method
 
  - NOTE: Make sure that location permissions are enabled before calling `InitTemrinal`
   
  ```
  if (ContextCompat.CheckSelfPermission(MainActivity.Instance, Android.Manifest.Permission.AccessFineLocation) != Android.Content.PM.Permission.Granted)
+ if (ContextCompat.CheckSelfPermission(this, Android.Manifest.Permission.AccessFineLocation) != Permission.Granted)
  {
-      ActivityCompat.RequestPermissions(MainActivity.Instance, new[] 
-      { 
-         Android.Manifest.Permission.AccessFineLocation }, 10);
-      }
+    ActivityCompat.RequestPermissions(this, new[] { Android.Manifest.Permission.AccessFineLocation }, 10);
  }
 
  # listener is typeof(ITerminalListener)
@@ -82,9 +80,9 @@ iOS:
 
 ```
 void InitTerminalManager();
-void DiscoverReaders(Action<IList<StripeTerminalReader>> readers, Action scanTimeoutCallback);
+void DiscoverReaders(StripeDiscoveryConfiguration config, Action<IList<StripeTerminalReader>> readers, Action scanTimeoutCallback);;
 void CancelDiscover();
-void ConnectToReader(StripeTerminalReader reader, Action<Boolean> onReaderConnectionSuccess);
+void ConnectToReader(StripeTerminalReader reader, Action<ReaderConnectionResult> onReaderConnectionSuccess);
 void ReconnectToReader(Action<Boolean> onReaderConnectionSuccess);
 void RetreivePaymentIntent(String clientSecret, Action<String> onSuccess, Action<String> onFailure);
 void RegisterReaderMessageNotifications(Action<String> readerMessageNotificationHandler);
