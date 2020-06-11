@@ -4,12 +4,12 @@ namespace Xamarin.Stripe.Terminal.Forms
 {
     public class StripeTerminalReader
     {
-        public Single BatteryLevel { get; set; }
+        public float BatteryLevel { get; set; }
+        public bool IsSimulated { get; set; }
+        public string SerialNumber { get; set; }
+        public string SoftwareVersion { get; set; }
 
-        public Boolean IsSimulated { get; set; }
-
-        public String SerialNumber { get; set; }
-
-        public String SoftwareVersion { get; set; }
+        //TODO: Add mapping
+        // public DeviceType DeviceType { get; set; }
     }
 }
