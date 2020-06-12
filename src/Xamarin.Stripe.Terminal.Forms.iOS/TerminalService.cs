@@ -157,22 +157,6 @@ namespace Xamarin.Stripe.Terminal.Forms
             }
         }
 
-        public void InitTerminalManager()
-        {
-            if (_isInitialized == false)
-            {
-                try
-                {
-                    _isInitialized = true;
-                    SCPTerminal.Shared.Delegate = new TerminalServiceTerminal(ConnectionNotifyHandler);
-                }
-                catch (Exception ex)
-                {
-                    throw new Exception("Location services are required in order to initialize the Terminal.", ex);
-                }
-            }
-        }
-
         public void RetreivePaymentIntent(string clientSecret, Action<string> onSuccess, Action<string> onFailure)
         {
             SCPTerminal.Shared.RetrievePaymentIntent(clientSecret, (SCPPaymentIntent intentToCapture, NSError retreiveError) =>
@@ -303,57 +287,24 @@ namespace Xamarin.Stripe.Terminal.Forms
         {
             _readerConnectionNotificationHandler?.Invoke(message);
         }
-    }
-}
 
-public class TerminalServiceReaderDisplay : SCPReaderDisplayDelegate
-{
-    private Action<string> NotifyHandler;
 
-    public TerminalServiceReaderDisplay(Action<string> notifyHandler)
-    {
-        NotifyHandler = notifyHandler;
-    }
+        public void InitTerminalManager(IConnectionTokenProviderService providerService)
+        {
+            SCPTerminal.SetTokenProvider(new StripeConnectionTokenProvider(providerService));
 
-    public override void DidRequestReaderDisplayMessage(SCPTerminal terminal, SCPReaderDisplayMessage displayMessage)
-    {
-        var message = SCPTerminal.StringFromReaderDisplayMessage(displayMessage);
-        NotifyHandler(message);
-    }
-
-    public override void DidRequestReaderInput(SCPTerminal terminal, SCPReaderInputOptions inputOptions)
-    {
-        var message = SCPTerminal.StringFromReaderInputOptions(inputOptions);
-        NotifyHandler(message);
-    }
-}
-
-public class TerminalServiceTerminal : SCPTerminalDelegate
-{
-    private Action<string> NotifyHandler;
-
-    public TerminalServiceTerminal(Action<string> notifyHandler)
-    {
-        NotifyHandler = notifyHandler;
-    }
-
-    public override void Terminal(SCPTerminal terminal, SCPReader reader)
-    {
-        NotifyHandler("Disconnected");
-    }
-}
-
-public class ReaderSoftwareUpdate : SCPReaderSoftwareUpdateDelegate
-{
-    private Action<float> NotifyHandler;
-
-    public ReaderSoftwareUpdate(Action<float> notifyHandler)
-    {
-        NotifyHandler = notifyHandler;
-    }
-
-    public override void DidReportReaderSoftwareUpdateProgress(SCPTerminal terminal, float progress)
-    {
-        NotifyHandler(progress);
+            if (_isInitialized == false)
+            {
+                try
+                {
+                    _isInitialized = true;
+                    SCPTerminal.Shared.Delegate = new TerminalServiceTerminal(ConnectionNotifyHandler);
+                }
+                catch (Exception ex)
+                {
+                    throw new Exception("Location services are required in order to initialize the Terminal.", ex);
+                }
+            }
+        }
     }
 }

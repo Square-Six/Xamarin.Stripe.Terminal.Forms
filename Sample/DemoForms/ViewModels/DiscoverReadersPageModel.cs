@@ -12,6 +12,7 @@ namespace DemoForms
     public class DiscoverReadersPageModel : BaseListViewModel<StripeTerminalReader>
     {
         private readonly IStripeTerminalService _stripeTerminalService;
+        private readonly IConnectionTokenProviderService _tokenProviderService;
 
         private StripeDiscoveryConfiguration _configuration;
 
@@ -28,9 +29,10 @@ namespace DemoForms
         private AsyncCommand _disconnectCommand;
         public AsyncCommand DisconnectCommand => _disconnectCommand ?? new AsyncCommand(DisconnectAsync);
 
-        public DiscoverReadersPageModel(IStripeTerminalService stripeTerminalService)
+        public DiscoverReadersPageModel(IStripeTerminalService stripeTerminalService, IConnectionTokenProviderService tokenProviderService)
         {
             _stripeTerminalService = stripeTerminalService;
+            _tokenProviderService = tokenProviderService;
         }
 
         public override void Init(object initData)
@@ -45,6 +47,8 @@ namespace DemoForms
             LeftButtonText = "Cancel";
             LeftButtonColor = Color.FromHex("#007AFF");
             TitleText = "Discovery";
+
+            _stripeTerminalService.InitTerminalManager(_tokenProviderService);
         }
 
         protected override void ViewIsAppearing(object sender, EventArgs args)
@@ -116,30 +120,30 @@ namespace DemoForms
             await base.OnItemSelected(item);
         }
 
-        private void ReaderConnectionResponse(ReaderConnectionResult connectionResult)
+        private async void ReaderConnectionResponse(ReaderConnectionResult connectionResult)
         {
             if (connectionResult.IsConnected)
             {
                 _stripeTerminalService.CancelDiscover();
-                _stripeTerminalService.CheckForSoftwareUpdate((description, ex) =>
+                _stripeTerminalService.CheckForSoftwareUpdate(async (description, ex) =>
                 {
                     IsBusy = false;
 
                     if (string.IsNullOrEmpty(description) == false)
                     {
-                        CoreMethods.DisplayAlert("Update", "A software update is available for your reader. Estimated update time is " + description, "OK");
+                        await CoreMethods.DisplayAlert("Update", "A software update is available for your reader. Estimated update time is " + description, "OK");
                         IsUpdateAvailable = true;
                     }
                     else if (string.IsNullOrEmpty(ex) == false)
                     {
                         Console.WriteLine(ex);
-                        CoreMethods.DisplayAlert("Error", ex, "OK");
+                        await CoreMethods.DisplayAlert("Error", ex, "OK");
                     }
                 });
             }
             else
             {
-                CoreMethods.DisplayAlert("Error", connectionResult.ErrorMessage, "OK");
+                await CoreMethods.DisplayAlert("Error", connectionResult.ErrorMessage, "OK");
             }
 
             IsResultsVisible = !connectionResult.IsConnected;

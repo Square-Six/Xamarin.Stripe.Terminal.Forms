@@ -7,7 +7,7 @@ namespace Xamarin.Stripe.Terminal.Forms
     {
         bool IsTerminalConnected { get; }
 
-        void InitTerminalManager();
+        void InitTerminalManager(IConnectionTokenProviderService providerService);
         void DiscoverReaders(StripeDiscoveryConfiguration config, Action<IList<StripeTerminalReader>> readers, Action scanTimeoutCallback);
         void CancelDiscover();
         void ConnectToReader(StripeTerminalReader reader, Action<ReaderConnectionResult> onReaderConnectionSuccess);

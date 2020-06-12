@@ -29,13 +29,6 @@ namespace DemoForms
             SetListItems();
         }
 
-        protected override void ViewIsAppearing(object sender, EventArgs e)
-        {
-            base.ViewIsAppearing(sender, e);
-
-            _stripeTerminalService.InitTerminalManager();
-        }
-
         private void SetListItems()
         {
             var items = new List<BaseModel>();
