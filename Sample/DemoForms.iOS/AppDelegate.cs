@@ -2,8 +2,6 @@
 using FreshMvvm;
 using Foundation;
 using UIKit;
-using DemoForms.iOS.Services;
-using StripeTerminal;
 using Xamarin.Stripe.Terminal.Forms;
 
 namespace DemoForms.iOS
@@ -25,10 +23,6 @@ namespace DemoForms.iOS
         {
             // Register the IStripeTerminalService dependency
             FreshIOC.Container.Register<IStripeTerminalService, TerminalService>();
-
-            // Set the Stripe Terminal token provider
-            var tokenProvider = new TokenProvider();
-            SCPTerminal.SetTokenProvider(tokenProvider);
 
             global::Xamarin.Forms.Forms.Init();
             LoadApplication(new App());

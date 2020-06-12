@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using Android.Bluetooth;
+using Android.Content;
 using Com.Stripe.Stripeterminal;
 using Com.Stripe.Stripeterminal.Callable;
 using Com.Stripe.Stripeterminal.Model.External;
@@ -11,6 +12,8 @@ namespace Xamarin.Stripe.Terminal.Forms
 {
     public class TerminalService : Java.Lang.Object, ITerminalListener, IDiscoveryListener, IStripeTerminalService, IReaderDisplayListener
     {
+        private static Context AppContext;
+
         private Cancelable _cancelable = null;
         private Cancelable _discoveryCancelable = null;
         private List<Reader> _discoveredReaders = new List<Reader>();
@@ -20,6 +23,11 @@ namespace Xamarin.Stripe.Terminal.Forms
         private Reader _connectedReader;
         private bool _isInitialized = false;
         private ReaderSoftwareUpdate _softwareUpdate;
+
+        public static void Init(Context context)
+        {
+            AppContext = context;
+        }
 
         public bool IsTerminalConnected => _isInitialized == false ? false : StripeTerminal.Instance.ConnectionStatus == ConnectionStatus.Connected;
 
@@ -350,13 +358,19 @@ namespace Xamarin.Stripe.Terminal.Forms
             }
         }
 
-        public void InitTerminalManager()
+        public void InitTerminalManager(IConnectionTokenProviderService providerService)
         {
+            if (AppContext == null)
+            {
+                throw new System.Exception($"TerminalService has not been initialized. Please call TerminalService.Init before calling the InitTerminalManager method.");
+            }
+
             if (BluetoothAdapter.DefaultAdapter != null && !BluetoothAdapter.DefaultAdapter.IsEnabled)
             {
                 BluetoothAdapter.DefaultAdapter.Enable();
             }
 
+            StripeTerminal.InitTerminal(AppContext, new StripeConnectionTokenProvider(providerService), this);
             SafeInitialize();
         }
     }

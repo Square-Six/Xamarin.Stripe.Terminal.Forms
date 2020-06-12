@@ -4,7 +4,6 @@ using Android.Runtime;
 using Android.OS;
 using FreshMvvm;
 using Acr.UserDialogs;
-using DemoForms.Droid.Services;
 using Com.Stripe.Stripeterminal;
 using Android.Support.V4.Content;
 using Android.Support.V4.App;
@@ -24,6 +23,8 @@ namespace DemoForms.Droid
 
             base.OnCreate(savedInstanceState);
 
+            TerminalService.Init(this);
+
             // Register the IStripeTerminalService dependency
             FreshIOC.Container.Register<IStripeTerminalService, TerminalService>();
 
@@ -37,10 +38,6 @@ namespace DemoForms.Droid
             {
                 ActivityCompat.RequestPermissions(this, new[] { Android.Manifest.Permission.AccessFineLocation }, 10);
             }
-            else
-            {
-                DoTerminalSetup();
-            }
 
             // Register Stripe Callback
             Application.RegisterActivityLifecycleCallbacks(_observer);
@@ -51,26 +48,6 @@ namespace DemoForms.Droid
             Xamarin.Essentials.Platform.OnRequestPermissionsResult(requestCode, permissions, grantResults);
 
             base.OnRequestPermissionsResult(requestCode, permissions, grantResults);
-
-            for (int i = 0; i < permissions.Length - 1; i++)
-            {
-                var permission = permissions[i];
-                var grant = grantResults[i];
-
-                if (permission == Android.Manifest.Permission.AccessFineLocation && grant == Permission.Granted)
-                {
-                    DoTerminalSetup();
-                }
-            }
-        }
-
-        private void DoTerminalSetup()
-        {
-            var terminalService = FreshIOC.Container.Resolve<IStripeTerminalService>() as TerminalService;
-            var tokenProvider = new TokenProvider();
-            StripeTerminal.InitTerminal(Application.Context, tokenProvider, terminalService);
-            terminalService.SafeInitialize();
-            terminalService.InitTerminalManager();
         }
     }
 }
