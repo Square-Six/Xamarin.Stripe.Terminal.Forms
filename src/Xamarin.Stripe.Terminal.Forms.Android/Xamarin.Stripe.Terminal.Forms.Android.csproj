@@ -278,7 +278,7 @@
       <HintPath>..\packages\Xamarin.Google.Android.Material.1.0.0.1\lib\monoandroid90\Xamarin.Google.Android.Material.dll</HintPath>
     </Reference>
     <Reference Include="Xamarin.Stripe.Terminal.Android">
-      <HintPath>..\packages\Xamarin.Stripe.Terminal.Android.1.0.15\lib\MonoAndroid90\Xamarin.Stripe.Terminal.Android.dll</HintPath>
+      <HintPath>..\packages\Xamarin.Stripe.Terminal.Android.1.0.17.1\lib\MonoAndroid90\Xamarin.Stripe.Terminal.Android.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>
