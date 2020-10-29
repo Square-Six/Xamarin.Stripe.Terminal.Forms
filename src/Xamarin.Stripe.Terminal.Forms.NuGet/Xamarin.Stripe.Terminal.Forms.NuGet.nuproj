@@ -7,7 +7,7 @@
     <ProjectGuid>{FE98F48D-CD3D-4C2D-B32A-F599464CE631}</ProjectGuid>
     <Description>Stripe-Terminal SDK bindings for Xamarin.Forms</Description>
     <PackageId>Xamarin.Stripe.Terminal.Forms</PackageId>
-    <PackageVersion>1.3.0</PackageVersion>
+    <PackageVersion>1.4.0</PackageVersion>
     <Authors>Jamie Smith, Blake Davidson</Authors>
     <DevelopmentDependency>false</DevelopmentDependency>
     <PackageRequireLicenseAcceptance>false</PackageRequireLicenseAcceptance>

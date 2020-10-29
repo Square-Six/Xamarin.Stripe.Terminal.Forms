@@ -43,7 +43,7 @@
     <Reference Include="System.Core" />
     <Reference Include="Xamarin.iOS" />
     <Reference Include="Xamarin.Stripe.Terminal.iOS">
-      <HintPath>..\packages\Xamarin.Stripe.Terminal.iOS.1.2.0\lib\xamarinios10\Xamarin.Stripe.Terminal.iOS.dll</HintPath>
+      <HintPath>..\packages\Xamarin.Stripe.Terminal.iOS.1.4.0\lib\Xamarin.iOS10\Xamarin.Stripe.Terminal.iOS.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>
