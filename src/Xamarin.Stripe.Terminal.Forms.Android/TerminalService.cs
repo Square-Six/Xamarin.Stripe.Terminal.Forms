@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using Android.Bluetooth;
@@ -114,12 +114,31 @@ namespace Xamarin.Stripe.Terminal.Forms
 
         public void DiscoverReaders(StripeDiscoveryConfiguration config, Action<IList<StripeTerminalReader>> readers, Action scanTimeoutCallback)
         {
-            _onReadersDiscoveredAction = readers;
+            // this assures the discovery succeeds on Android. Old code, ignores this, leading to lack of success in finding other types of readers except for Chipper2x
+            var deviceType = DeviceType.Chipper2x;
+            switch (config.DeviceType)
+            {
+                case "Chipper2X":
+                    deviceType = DeviceType.Chipper2x;
+                    break;
+                case "VerifoneP400":
+                    deviceType = DeviceType.VerifoneP400;
+                    break;
+                case "WisePad3":
+                    deviceType = DeviceType.Wisepad3;
+                    break;
+            }
+
+         
+            var configuration = new DiscoveryConfiguration(config.TimeOut, deviceType, isSimulated: config.IsSimulated);
+
+
+           _onReadersDiscoveredAction = readers;
             _discoveryCancelable?.Cancel(new GenericCallback((ex) =>
             {
                 // Do Nothing...
             }));
-            _discoveryCancelable = StripeTerminal.Instance.DiscoverReaders(new DiscoveryConfiguration(config.TimeOut, DeviceType.Chipper2x, isSimulated: config.IsSimulated), this, new GenericCallback((ex) =>
+            _discoveryCancelable = StripeTerminal.Instance.DiscoverReaders(configuration, this, new GenericCallback((ex) =>
             {
                 // Do Nothing...
                 scanTimeoutCallback();
