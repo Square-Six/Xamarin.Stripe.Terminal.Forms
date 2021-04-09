@@ -10,7 +10,7 @@
     <OutputType>Library</OutputType>
     <RootNamespace>Xamarin.Stripe.Terminal.Forms</RootNamespace>
     <AssemblyName>Xamarin.Stripe.Terminal.Forms</AssemblyName>
-    <TargetFrameworkVersion>v9.0</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v11.0</TargetFrameworkVersion>
     <MonoAndroidResourcePrefix>Resources</MonoAndroidResourcePrefix>
     <MonoAndroidAssetsPrefix>Assets</MonoAndroidAssetsPrefix>
   </PropertyGroup>
@@ -277,8 +277,11 @@
     <Reference Include="Xamarin.Google.Android.Material">
       <HintPath>..\packages\Xamarin.Google.Android.Material.1.0.0.1\lib\monoandroid90\Xamarin.Google.Android.Material.dll</HintPath>
     </Reference>
+    <Reference Include="Xamarin.Google.Guava.ListenableFuture">
+      <HintPath>..\packages\Xamarin.Google.Guava.ListenableFuture.1.0.0.2\lib\monoandroid50\Xamarin.Google.Guava.ListenableFuture.dll</HintPath>
+    </Reference>
     <Reference Include="Xamarin.Stripe.Terminal.Android">
-      <HintPath>..\packages\Xamarin.Stripe.Terminal.Android.1.0.17.1\lib\MonoAndroid90\Xamarin.Stripe.Terminal.Android.dll</HintPath>
+      <HintPath>..\packages\Xamarin.Stripe.Terminal.Android.1.0.17.2\lib\monoandroid11.0\Xamarin.Stripe.Terminal.Android.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>
@@ -373,4 +376,6 @@
   <Import Project="..\packages\Xamarin.AndroidX.Legacy.Support.Core.UI.1.0.0.1\build\monoandroid90\Xamarin.AndroidX.Legacy.Support.Core.UI.targets" Condition="Exists('..\packages\Xamarin.AndroidX.Legacy.Support.Core.UI.1.0.0.1\build\monoandroid90\Xamarin.AndroidX.Legacy.Support.Core.UI.targets')" />
   <Import Project="..\packages\Xamarin.AndroidX.Transition.1.2.0.1\build\monoandroid90\Xamarin.AndroidX.Transition.targets" Condition="Exists('..\packages\Xamarin.AndroidX.Transition.1.2.0.1\build\monoandroid90\Xamarin.AndroidX.Transition.targets')" />
   <Import Project="..\packages\Xamarin.Google.Android.Material.1.0.0.1\build\monoandroid90\Xamarin.Google.Android.Material.targets" Condition="Exists('..\packages\Xamarin.Google.Android.Material.1.0.0.1\build\monoandroid90\Xamarin.Google.Android.Material.targets')" />
+  <Import Project="..\packages\Xamarin.AndroidX.AppCompat.Resources.1.1.0\build\monoandroid90\Xamarin.AndroidX.AppCompat.Resources.targets" Condition="Exists('..\packages\Xamarin.AndroidX.AppCompat.Resources.1.1.0\build\monoandroid90\Xamarin.AndroidX.AppCompat.Resources.targets')" />
+  <Import Project="..\packages\Xamarin.Google.Guava.ListenableFuture.1.0.0.2\build\monoandroid50\Xamarin.Google.Guava.ListenableFuture.targets" Condition="Exists('..\packages\Xamarin.Google.Guava.ListenableFuture.1.0.0.2\build\monoandroid50\Xamarin.Google.Guava.ListenableFuture.targets')" />
 </Project>
