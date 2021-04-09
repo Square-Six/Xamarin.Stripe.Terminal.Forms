@@ -71,6 +71,18 @@ void RegisterConnectionMessageNotifications(Action<string> readerConnectionNotif
 void TearDownConnectionMessageNotifications();
 ```
 
+
+
+NOTE: If you run into any compiler issues with Java exited with Code 1 or DX8, on the Android side, try adding the folliwing nuget package to resolve the issue.
+
+```sh
+<PackageReference Include="Xamarin.Google.Guava.ListenableFuture" ExcludeAssets="build;buildTransitive">
+   <Version>1.0.0.2</Version>
+</PackageReference>
+```
+
+
+
 ## Native SDK Documentation
 
 iOS:
