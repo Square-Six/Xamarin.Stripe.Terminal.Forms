@@ -140,7 +140,7 @@
       <Version>7.1.0.442</Version>
     </PackageReference>
     <PackageReference Include="Xamarin.Stripe.Terminal.Forms">
-      <Version>1.4.0</Version>
+      <Version>1.4.2</Version>
     </PackageReference>
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\iOS\Xamarin.iOS.CSharp.targets" />
